@@ -28,8 +28,8 @@ load test_helper
   run cat "$THE_TMP/$WORKFLOW_FAILED_TXT"
   [ "$status" -eq 0 ]
   cat "$THE_TMP/$WORKFLOW_FAILED_TXT"
-  [ "${lines[0]}" == "simple.error.message=No images directory found in WorkspaceFile" ]
-  [ "${lines[1]}" == "detailed.error.message=Error No png files found" ]
+  [ "${lines[0]}" == "simple.error.message=No images found in WorkspaceFile" ]
+  [ "${lines[1]}" == "detailed.error.message=Error No png files found : " ]
 
   # Check output of README.txt file
   [ -s "$THE_TMP/$README_TXT" ]
