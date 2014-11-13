@@ -5,7 +5,7 @@ load test_helper
 #
 # Test 
 #
-@test "png files in data subdir but hard link fails" {
+@test "Successful run" {
   # verify $KEPLER_SH is in path if not skip this test
   skipIfKeplerNotInPath
 
