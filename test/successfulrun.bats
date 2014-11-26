@@ -50,23 +50,38 @@ load test_helper
   [ -e "$THE_TMP/data/foo2.png" ]
   [ -e "$THE_TMP/data/foo3.png" ] 
 
-  # verify we hardlinked the data 
-  run stat --format="%h" "$THE_TMP/data/foo.png"
-  [ "$status" -eq 0 ] 
-  [ "${lines[0]}" == "2" ]
+  # verify we hardlinked the data
+  statCmd="stat --format \"%h\""
+ 
+  run stat --version
+  echo "run stat version: ${lines[@]}"
+  if [ "$status" -ne 0 ] ; then
+    run stat -f '%l' "$THE_TMP/data/foo.png"
+    echo "more ${lines[@]}"
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" == "2" ]
 
-  run stat --format="%h" "$THE_TMP/data/foo2.png"
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" == "2" ]
+    run stat -f '%l' "$THE_TMP/data/foo2.png"
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" == "2" ]
 
-  run stat --format="%h" "$THE_TMP/data/foo3.png"
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" == "2" ]
+    run stat -f '%l' "$THE_TMP/data/foo3.png"
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" == "2" ]
+  else
+    run stat --format='%h' "$THE_TMP/data/foo.png"
+    echo "more ${lines[@]}"
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" == "2" ]
 
+    run stat --format='%h' "$THE_TMP/data/foo2.png"
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" == "2" ]
 
-
-
-
+    run stat --format='%h' "$THE_TMP/data/foo3.png"
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" == "2" ]
+  fi
   
 }
 
