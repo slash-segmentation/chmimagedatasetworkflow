@@ -14,9 +14,13 @@ load test_helper
   echo "hi" > "$THE_TMP/input/data/foo.png"
   echo "hi" > "$THE_TMP/input/data/foo2.png"
   echo "hi" > "$THE_TMP/input/data/foo3.png"
-  
-  echo "0,images/040.png[39] PNG 500x500 17387x17422+1412+1971 8-bit PseudoClass 256c 200kb,," > "$THE_TMP/bin/command.tasks"
-  
+
+ 
+  echo "0,250x250::8-Gray,," > "$THE_TMP/bin/command.tasks"
+  echo "0,250x250::8-Gray,," >> "$THE_TMP/bin/command.tasks"
+  echo "0,250x250::8-Gray,," >> "$THE_TMP/bin/command.tasks"
+
+ 
   
   # Run kepler.sh with no other arguments
   run $KEPLER_SH -runwf -redirectgui $THE_TMP -CWS_jobname jname -CWS_user joe -CWS_jobid 123 -inputPathRaw "$THE_TMP/input" -identifyCmd "$THE_TMP/bin/command" -CWS_outputdir $THE_TMP $WF
@@ -28,8 +32,9 @@ load test_helper
   [[ "${lines[0]}" == "The base dir is"* ]]
 
   echo "Output from kepler.  Should only see this if something below fails ${lines[@]}"
+  cat "$THE_TMP/$README_TXT"
 
-  # Verify we got a workflow failed txt file
+  # Verify we didn't get a workflow failed txt file
   [ ! -e "$THE_TMP/$WORKFLOW_FAILED_TXT" ]
 
   # Check output of README.txt file

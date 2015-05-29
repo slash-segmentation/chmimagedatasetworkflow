@@ -12,8 +12,10 @@ load test_helper
 
   echo "hi" > "$THE_TMP/foo.png"
 
+  echo "0,1536x2048::8-RGB,," > "$THE_TMP/bin/command.tasks"
+
   # Run kepler.sh with no other arguments
-  run $KEPLER_SH -runwf -redirectgui $THE_TMP -CWS_jobname jname -CWS_user joe -CWS_jobid 123 -inputPathRaw "$THE_TMP" -CWS_outputdir $THE_TMP $WF
+  run $KEPLER_SH -runwf -redirectgui $THE_TMP -CWS_jobname jname -CWS_user joe -CWS_jobid 123 -inputPathRaw "$THE_TMP" -identifyCmd "$THE_TMP/bin/command" -CWS_outputdir $THE_TMP $WF
 
   # Check exit code
   [ "$status" -eq 0 ]
@@ -30,17 +32,9 @@ load test_helper
   run cat "$THE_TMP/$WORKFLOW_FAILED_TXT"
   [ "$status" -eq 0 ]
   cat "$THE_TMP/$WORKFLOW_FAILED_TXT"
-  [ "${lines[0]}" == "simple.error.message=One or more images are not 8bit" ]
-  [[ "${lines[1]}" == "detailed.error.message=Got a depth of"* ]]
+  [ "${lines[0]}" == "simple.error.message=No valid images found" ]
+  [[ "${lines[1]}" == "detailed.error.message=Error Expected 8-Gray for depth and colorspace, but got 8-RGB : "* ]]
 
-  # Check output of README.txt file
-  [ -s "$THE_TMP/$README_TXT" ]
-  run grep "Selected input Path: " "$THE_TMP/$README_TXT"
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" == "Selected input Path: $THE_TMP" ]
-
-  # Check output of workflow.status file
-  [ -s "$THE_TMP/$WORKFLOW_STATUS" ]
   run cat "$THE_TMP/$WORKFLOW_STATUS"
   [ "$status" -eq 0 ]
   [[ "${lines[0]}" == "# Seconds since"* ]]
