@@ -1,3 +1,6 @@
+[kepler]: https://kepler-project.org/
+[testreadme]: https://github.com/slash-segmentation/chmimagedatasetworkflow/blob/master/test/README.md
+
 chmimagedatasetworkflow
 =======================
 
@@ -6,17 +9,17 @@ CHM Image dataset Workflow
 Requirements
 ============
 
-Requires [Kepler 2.4 or higher][1] updated with latest modules
+Requires [Kepler 2.4 or higher][kepler] updated with latest modules
 
 Building
 ========
 
-None required, simply load **src/chmimagedataset.kar** via [Kepler][1]
+None required, simply load **src/chmimagedataset.kar** via [Kepler][kepler]
 
 Testing
 =======
 
-**cd** into **test/** and view [README][2] for information
+**cd** into **test/** and view [README][testreadme] for information
 on how to test the workflow
 
 Copyright
